@@ -130,10 +130,11 @@ xl2tpd
 zsh
 
 # DE
-gnome
+xfce4
 wayland
 xorg
 xorg-server
+sddm
 
 # PreInstalled Apps
 nodejs
@@ -174,7 +175,6 @@ networkmanager
 #sunnyos repo
 filesystem
 yai
-sunny-gdm-config
 sunny-calamares-config
 calamares
 sunnyos_grunty
