@@ -6,7 +6,7 @@ on:
       branch:
         description: 'Branch to build'
         required: true
-        default: 'sunnyos_gnome'
+        default: 'moonlight'
 
 
 jobs:
@@ -34,7 +34,9 @@ jobs:
             -v "/mnt/temp:/tmp" \
             archlinux:latest /bin/bash -c "
               pacman -Sy --noconfirm archiso &&
-              mkarchiso -v -w /tmp/work -o /tmp/out /work
+              wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/moonlight.balens &&
+              wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/balens &&
+              balens
             "
 
       - name: Upload ISO artifact
