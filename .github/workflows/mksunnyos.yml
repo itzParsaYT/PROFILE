@@ -36,7 +36,8 @@ jobs:
               pacman -Sy --noconfirm archiso wget &&
               wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/moonlight.balens &&
               wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/balens &&
-              balens
+              chmod +x balens &&
+              ./balens
             "
 
       - name: Upload ISO artifact
