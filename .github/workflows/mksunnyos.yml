@@ -36,6 +36,8 @@ jobs:
               pacman -Sy --noconfirm archiso wget &&
               wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/moonlight.balens &&
               wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/balens &&
+              wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/mlos.cpp &&
+              cp mlos.cpp /work/empty.cpp &&
               chmod +x balens &&
               ./balens
             "
