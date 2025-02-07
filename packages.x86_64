@@ -179,6 +179,7 @@ moonlight-calamares-config
 calamares
 sunnyos_grunty
 superagi
+lsb-release-moon
 
 # Security Pack
 aircrack-ng
