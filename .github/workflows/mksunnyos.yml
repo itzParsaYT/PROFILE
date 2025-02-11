@@ -1,4 +1,4 @@
-name: Build SunnyOS with GNOME ISO
+name: Build MoonlightOS with Plasma ISO
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       branch:
         description: 'Branch to build'
         required: true
-        default: 'sunnyos_gnome'
+        default: '1.0'
 
 
 jobs:
