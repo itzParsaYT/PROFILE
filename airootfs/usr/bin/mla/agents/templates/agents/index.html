@@ -1,0 +1,292 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html data-theme="forest">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css"/>
+
+    <link href="{% static "assets/css/index.css" %}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="flex flex-row">
+    <div id="top-bar" class="fixed top-0 left-0 right-0 h-12 bg-base-200 flex items-center justify-between px-4 z-50">
+        <!-- App Logo or Title -->
+        <div class="flex items-center gap-2">
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    width="64"
+                    height="64"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            >
+                <!-- Moon -->
+                <path
+                        d="M48 40a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"
+                        fill="none"
+                        stroke="#00faad"
+                />
+                <path
+                        d="M48 40a16 16 0 0 1-16-16 16 16 0 0 1 16-16 16 16 0 0 0 0 32z"
+                        fill="##00faad"
+                />
+
+                <!-- Microphone (AI Assistant) -->
+                <path
+                        d="M24 24v8a8 8 0 0 0 16 0v-8"
+                        stroke="#006a47"
+                />
+                <path
+                        d="M32 40v8M28 48h8"
+                        stroke="#006a47"
+                />
+                <circle
+                        cx="32"
+                        cy="20"
+                        r="4"
+                        fill="#006a47"
+                />
+            </svg>
+            <span class="text-lg font-semibold text-secondary">Moon Light Assistant</span>
+        </div>
+
+        <!-- Window Controls -->
+        <div class="flex items-center gap-2">
+            <button id="minimize-btn" class="p-1 hover:bg-base-300 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <button id="maximize-btn" class="p-1 hover:bg-base-300 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v10H5V5z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <button id="close-btn" class="p-1 hover:bg-red-500 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="h-screen w-24 bg-base-200 left-0 pt-12 bottom-0" id="side">
+        <div class="p-6" id="dashboasrd">
+            <a href="{% url "dashboard" %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#22b88e" class="bi bi-sliders h-7 w-7"
+                     viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="p-4" id="AI">
+            <a href="{% url "talk" %}">
+                <img height="40px" width="40px" src="{% static "assets/img/artificial-intelligence-ai-icon.svg" %}"/>
+            </a>
+        </div>
+        <div class="p-4 text-center hidden" id="answers_ic">
+            <button class="badge badge-outline badge-secondary">
+                Answers
+            </button>
+        </div>
+    </div>
+
+
+    <div class="p-8 h-screen" id="left">
+        <div class="rounded-3xl bg-base-200 left-0 top-0 h-full bottom-0 py-8 px-6">
+            <div class=" w-full rounded-3xl outline-2 outline-offset-2 outline-secondary  p-2" id="tasks_place">
+                <div class="h-full w-full bg-base-100 rounded-3xl p-4 relative overflow-scroll no-scrollbar"
+                     id="left-chat-body">
+
+                    {% for task in tasks %}
+                        {% if tasks.last == task %}
+                            <div id="chat-last-task" class="grid w-fill mt-8 grid-cols-1">
+                                <div class="flex flex-row">
+                                    <time class="text-xs opacity-50 ml-2">{{ task.timestamp }}</time>
+                                    {% if task.agents.count > 1 %}
+                                        <p class="opacity-50 text-xs">multi process</p>
+                                    {% endif %}
+                                </div>
+                                <div class="h-auto min-h-12  w-full block rounded-3xl bg-neutral ml-4 mr-4 px-7 py-5 col-span-1 justify-self-center">
+                                    <p class="text-justify text-lg">{{ task.text }}</p>
+
+                                    <div class="justify-self-end mt-8">
+                                        {% for agent in task.agents.all %}
+                                            {% if agent %}
+                                                <p class="badge badge-secondary badge-outline text-xs nx-2">{{ agent }}</p>
+                                            {% else %}
+                                                <p class="badge badge-secondary badge-outline text-xs nx-2">agent
+                                                    deleted</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="grid w-fill mt-8 grid-cols-1">
+                                <div class="flex flex-row">
+                                    <time class="text-xs opacity-50 ml-2">{{ task.timestamp }}</time>
+                                    {% if task.agents.count > 1 %}
+                                        <p class="opacity-50 text-xs">multi process</p>
+                                    {% endif %}
+                                </div>
+                                <div class="h-auto min-h-12  w-full block rounded-3xl bg-neutral ml-4 mr-4 px-7 py-5 col-span-1 justify-self-center">
+                                    <p class="text-justify text-lg">{{ task.text }}</p>
+                                    <div class="justify-self-end mt-8">
+                                        {% for agent in task.agents.all %}
+                                            {% if agent %}
+                                                <p class="badge badge-secondary badge-outline text-xs nx-2">{{ agent }}</p>
+                                            {% else %}
+                                                <p class="badge badge-secondary badge-outline text-xs nx-2">agent
+                                                    deleted</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+
+            <div class="" id="task_inputs">
+                <div class="grid grid-cols-8">
+
+                    <div class="col-span-7">
+                        <label class="flex items-center gap-2 rounded-3xl min-h-12 px-3 bg-base-400">
+                            <input type="text" class="grow focus:outline-0" placeholder="Send" id="task-body"/>
+
+                            <select class="badge badge-secondary text-xs min-h-max max-h-min w-12" id="select">
+                                <option class="bg-secondary ">Add Agent</option>
+                                {% for agent in agents %}
+                                    <option class="bg-secondary " index="{{ agent.id }}"
+                                            id="agent-option">{{ agent }}</option>
+                                {% endfor %}
+                            </select>
+
+
+                            <svg xmlns="http://www.w3.org/2000/svg" id="create-task"
+                                 class="h-7 w-7 opacity-70 bi bi-arrow-right-circle-fill bg-emerald-300 outline outline-emerald-300 rounded-3xl duration-700 ease-in-out hover:scale-125 hover:fill-emerald-300 hover:bg-base-100"
+                                 viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                            </svg>
+                        </label>
+
+                    </div>
+                    <div>
+                        <div class="rounded-3xl bg-base-400 w-12 h-12 content-center ml-4 outline outline-emerald-300 duration-700 hover:scale-125 hover:bg-secondary"
+                             id="create-task">
+                            <label class="flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                                     class="opacity-75 bi bi-plus-lg" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                </svg>
+                                <input type="file" class="hidden" placeholder="Send"/>
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="bg-base-400 rounded-3xl my-6 px-3 py-3 min-h-12" id="selected-agents">
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="p-8  h-screen w-full -remove" id="right">
+        <div class="h-full w-full bg-base-200 rounded-3xl p-8">
+            <div class="h-full w-full rounded-3xl outline-2 outline-offset-2 outline-secondary  p-2">
+                <div class="h-full w-full bg-base-100 rounded-3xl p-4 relative overflow-scroll no-scrollbar"
+                     id="right-chat-body">
+
+                    {% for answer in answers %}
+                        {% if answers.last == answer %}
+                            <div id="chat-last-task" class="grid w-fill mt-8 grid-cols-1 add-task">
+                                <div class="flex flex-row">
+                                    <time class="text-xs opacity-50 ml-2">{{ answer.timestamp }}</time>
+                                    {% if answer.agents.count > 1 %}
+                                        <p class="opacity-50 text-xs">multi process</p>
+                                    {% endif %}
+                                </div>
+                                <div class="h-auto min-h-12  w-full block rounded-3xl bg-neutral ml-4 mr-4 px-7 py-5 col-span-1 justify-self-center">
+                                    <p class="text-justify text-lg">{{ answer.text }}</p>
+                                    <div class="justify-self-end mt-8">
+                                        {% for agent in answer.answer.agents.all %}
+                                            <p class="badge badge-secondary badge-outline text-xs nx-2">{{ agent }}</p>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="grid w-fill mt-8 grid-cols-1 add-task">
+                                <div class="flex flex-row">
+                                    <time class="text-xs opacity-50 ml-2 mr-4">{{ answer.timestamp }}</time>
+                                    {% if answer.agents.count > 1 %}
+                                        <p class="opacity-50 text-xs">multi process</p>
+                                    {% endif %}
+                                </div>
+                                <div class="h-auto min-h-12  w-full block rounded-3xl bg-neutral ml-4 mr-4 px-7 py-5 col-span-1 justify-self-center">
+                                    <p class="text-justify text-lg">{{ answer.text }}</p>
+                                    <div class="justify-self-end mt-8">
+                                        <p class="badge badge-secondary badge-outline text-xs nx-2">{{ answer.agents }}</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alert" class="fixed inset-0 hidden">
+        <div id="blur-background" class="absolute inset-0 blur-background opacity-0"></div>
+
+        <div id="alert-box" class="fullscreen-alert bg-base-400 outline outline-secondary">
+            <p class="text-2xl">dont forget</p>
+            <div class="mb-4">
+                <p id="error-alert" class="">please write a task before sending it.</p>
+            </div>
+            <button id="close-alert" class="bg-base-200 outline-secondary outline w-28 h-12 p-4 rounded-2xl">
+                close
+            </button>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="{% static "assets/js/home.js" %}"></script>
+
+</html>

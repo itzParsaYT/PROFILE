@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Moonlight Assistant
+GenericName=MLA
+Keywords=moonlightos;moonlight;moon;assistant;ai;
+TryExec=mla.sh
+Exec=/usr/bin/mla.sh
+Comment=MoonlightOS Assistant
+Icon=sunnygrunty
+Terminal=false
+StartupNotify=true
+Categories=Qt;System;Accessories;Programming;
+X-AppStream-Ignore=true

@@ -1,0 +1,26 @@
+{
+  "name": "moonlight",
+  "version": "1.0.0",
+  "main": "index.js",
+  "build": {
+    "appId": "moonlight-assistant",
+    "productName": "moonlight",
+    "linux": {
+      "target": "AppImage",
+      "icon": "static/assets/img/1477521569_halloween_outline-18_icon-icons.com_74580.png"
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^34.1.1",
+    "electron-builder": "^25.1.8"
+  }
+}

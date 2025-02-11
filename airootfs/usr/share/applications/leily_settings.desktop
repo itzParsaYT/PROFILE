@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=MoonlightOS Leily Settings
+GenericName=MLOSLS
+Keywords=moonlightos;moonlight;moon;leily;ai;assistant;
+TryExec=settings.sh
+Exec=/usr/bin/settings.sh
+Comment=MoonlightOS Leily Settings Editor
+Icon=moonlightleily
+Terminal=false
+StartupNotify=true
+Categories=Qt;System;Accessories;Programming;
+X-AppStream-Ignore=true

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Replit
+Comment=Replit desktop app
+GenericName=Replit
+Exec=replit %U
+Icon=replit
+Type=Application
+StartupNotify=true
+Categories=Development;
+MimeType=x-scheme-handler/replit;
+

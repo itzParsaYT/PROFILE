@@ -1,0 +1,12 @@
+[Unit]
+Description=Custom lsb-release
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/lsb_custom.sh
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=graphical.target

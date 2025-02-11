@@ -1,0 +1,15 @@
+pkgname=shit
+pkgver=2.5.6
+pkgrel=1
+pkgdesc="PyGPT is an open-source desktop AI assistant that provides direct interaction with various language models, including OpenAI's GPT-4, GPT-4 Vision, GPT-3.5, and DALL-E 3."
+arch=('x86_64')
+license=('MIT')
+depends=('python-pip' 'python-setuptools' 'python-wheel')
+source=("src.zip" "mla.desktop" "mla.sh")
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+package() {
+    python -m pip install --prefix="$pkgdir/usr" django djangorestframework django-cors-headers upsonic
+    mv "$srcdir/py-gpt" "$pkgdir/usr/bin/pygpt"
+    install -Dm644 "$srcdir/mla.desktop" "$pkgdir/usr/share/applications/mla.desktop"
+    install -Dm644 "$srcdir/mla.sh" "$pkgdir/usr/bin/mla.sh"
+}

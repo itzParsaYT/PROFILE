@@ -1,0 +1,587 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html data-theme="forest">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{% static "assets/css/dashboard.css" %}" rel="stylesheet" type="text/css">
+
+    <style>
+
+
+
+    </style>
+</head>
+<body data-theme="forest">
+<div id="alert-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md"></div>
+<div class="flex flex-row">
+
+
+<div id="top-bar" class="fixed top-0 left-0 right-0 h-12 bg-base-200 flex items-center justify-between px-4 z-50">
+        <!-- App Logo or Title -->
+        <div class="flex items-center gap-2">
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 64 64"
+                    width="64"
+                    height="64"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+            >
+                <!-- Moon -->
+                <path
+                        d="M48 40a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"
+                        fill="none"
+                        stroke="#00faad"
+                />
+                <path
+                        d="M48 40a16 16 0 0 1-16-16 16 16 0 0 1 16-16 16 16 0 0 0 0 32z"
+                        fill="##00faad"
+                />
+
+                <!-- Microphone (AI Assistant) -->
+                <path
+                        d="M24 24v8a8 8 0 0 0 16 0v-8"
+                        stroke="#006a47"
+                />
+                <path
+                        d="M32 40v8M28 48h8"
+                        stroke="#006a47"
+                />
+                <circle
+                        cx="32"
+                        cy="20"
+                        r="4"
+                        fill="#006a47"
+                />
+            </svg>
+            <span class="text-lg font-semibold text-secondary">Moon Light Assistant</span>
+        </div>
+
+        <!-- Window Controls -->
+        <div class="flex items-center gap-2">
+            <button id="minimize-btn" class="p-1 hover:bg-base-300 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <button id="maximize-btn" class="p-1 hover:bg-base-300 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v10H5V5z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <button id="close-btn" class="p-1 hover:bg-red-500 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="h-screen w-24 bg-base-200 left-0 pt-12 bottom-0" id="side">
+        <div class="p-6" id="dashboasrd">
+            <a href="{% url "dashboard" %}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#22b88e" class="bi bi-sliders h-7 w-7"
+                     viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="p-4" id="AI">
+            <a href="{% url "talk" %}">
+                <img height="40px" width="40px" src="{% static "assets/img/artificial-intelligence-ai-icon.svg" %}"/>
+            </a>
+        </div>
+        <div class="p-4 text-center hidden" id="answers_ic">
+            <button class="badge badge-outline badge-secondary">
+                Answers
+            </button>
+        </div>
+    </div>
+
+
+    <div class="grid grid-cols-23 h-screen grid-rows-6 pt-8">
+
+
+        <div class="justify-self-center" id="agents_every_thing">
+
+            <div class="grid grid-rows-3 h-full" id="fdffs">
+
+                <div class="card bg-base-200 m-8 rounded-3xl row-span-2 px-6 py-6 outline outline-secondary ">
+                    <div class="card-body flex flex-row overflow-y-scroll">
+                        <form method="post" class="" id="form-agents">
+                            {% csrf_token %}
+
+                            <div class="card-tilte mb-5">
+                                <p class="text-2xl"><strong>Create your agent</strong></p>
+                            </div>
+
+                            <div class="simp-y-bord">
+                                <div class="grid grid-cols-8 pb-4 pt-4">
+                                    <!-- Name Input -->
+                                    <div class="textInputWrapper col-span-4">
+                                        <input
+                                                type="text"
+                                                name="name"
+                                                class="textInput"
+                                                placeholder="name"
+                                                id="create-agent-input"
+                                                required
+                                        >
+                                    </div>
+
+                                    <!-- Job Input -->
+                                    <div class="textInputWrapper col-span-4">
+                                        <input
+                                                type="text"
+                                                name="job"
+                                                class="textInput"
+                                                placeholder="job title"
+                                                id="create-agent-input"
+                                                required
+                                        >
+                                    </div>
+
+                                    <!-- Company URL -->
+                                    <div class="textInputWrapper col-span-4">
+                                        <input
+                                                type="url"
+                                                name="company_url"
+                                                class="textInput"
+                                                placeholder="company url"
+                                                id="create-agent-input"
+                                                required
+                                        >
+                                    </div>
+
+                                    <!-- Company Objective -->
+                                    <div class="textInputWrapper col-span-4">
+                                        <input
+                                                type="text"
+                                                name="company_objective"
+                                                class="textInput"
+                                                placeholder="company objective"
+                                                id="create-agent-input"
+                                                required
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Checkboxes Section -->
+                            <div class="grid grid-cols-2">
+                                <!-- Compress Checkbox -->
+                                <label class="checkbox-wrapper">
+                                    <input
+                                            type="checkbox"
+                                            name="compress"
+                                            class="hidden-checkbox"
+                                            id="create-agent-checkboxes"
+                                    >
+                                    <div class="checkmark">
+                                        <svg stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                            <path
+                                                    stroke-linejoin="round"
+                                                    stroke-linecap="round"
+                                                    stroke-width="3"
+                                                    d="M20 6L9 17L4 12"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <span class="label">compress</span>
+                                </label>
+
+                                <!-- Irrelevant Checkbox -->
+                                <label class="checkbox-wrapper">
+                                    <input
+                                            type="checkbox"
+                                            name="irrelevant"
+                                            class="hidden-checkbox"
+                                            id="create-agent-checkboxes"
+                                    >
+                                    <div class="checkmark">
+                                        <svg stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                            <path
+                                                    stroke-linejoin="round"
+                                                    stroke-linecap="round"
+                                                    stroke-width="3"
+                                                    d="M20 6L9 17L4 12"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <span class="label">irrelevant</span>
+                                </label>
+
+                                <!-- Memory Checkbox -->
+                                <label class="checkbox-wrapper mr-2">
+                                    <input
+                                            type="checkbox"
+                                            name="memory"
+                                            class="hidden-checkbox"
+                                            id="create-agent-checkboxes"
+                                    >
+                                    <div class="checkmark">
+                                        <svg stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                            <path
+                                                    stroke-linejoin="round"
+                                                    stroke-linecap="round"
+                                                    stroke-width="3"
+                                                    d="M20 6L9 17L4 12"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <span class="label">memory</span>
+                                </label>
+                            </div>
+
+                            <!-- Selectors and Submit -->
+                            <div class="grid grid-cols-10 mt-12">
+                                <div class="col-span-10 grid grid-cols-10 mb-4 gap-x-4">
+                                    <div class="btn btn-secondary btn-outline col-span-5">
+                                        <select
+                                                name="api_key"
+                                                class="text-xs outline-0 focus:outline-0 min-h-max max-h-min w-48"
+                                                id="choose_api_key_agent"
+                                                required
+                                        >
+                                            <option value="" class="bg-base-400 text-secondary">choose your key</option>
+                                            {% for key in keys %}
+                                                <option class="bg-base-400 text-secondary" value="{{ key.id }}"
+                                                        model-company="{{ key.company }}">{{ key.name }}</option>
+
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <!-- API Key Selector -->
+                                    <div class="btn btn-secondary btn-outline col-start-6 col-span-5">
+                                        <select
+                                                name="api_key"
+                                                class="text-xs outline-0 focus:outline-0 min-h-max max-h-min w-48"
+                                                id="choose_llm_agent"
+                                                required
+                                        >
+                                            <option class="bg-base-400 text-secondary" value="">choose your llm</option>
+
+
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="flex justify-end col-span-10 justify-center">
+                                    <button
+                                            id="create-agent"
+                                            type="reset"
+                                            class="btn btn-secondary btn-outline w-48 mb-10 w-full"
+                                    >
+                                        Create
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card bg-base-200 rounded-3xl py-8 px-6 m-8 outline outline-secondary ">
+                    <div class="card-tilte mb-5">
+                        <p class="text-xl"><strong>Agents</strong></p>
+                    </div>
+                    <div class="overflow-scroll no-scrollbar h-[45%] card-body bg-base-100 rounded-3xl" id="agents_place">
+                        {% if agents.count > 0 %}
+
+                            {% for agent in agents %}
+                                <div class="w-full h-18 rounded-3xl my-4 bg-base-200 px-3 py-3"
+                                     style="border: #1db88e  1px solid" id="agent">
+                                    <div class="flex content-center w-full">
+                                        <div class="avatar">
+                                            <div class="w-12 h-12 rounded-3xl">
+                                                <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"/>
+                                            </div>
+                                        </div>
+                                        <div class="ml-3 w-full">
+                                            <p>{{ agent.name }}</p>
+                                            <hr>
+                                            {% if agent.LLm %}
+                                                <p class="badge badge-neutral">{{ agent.LLM }}</p>
+
+                                            {% endif %}
+                                            {% if agent.job %}
+                                                <p class="badge badge-secondary">{{ agent.job }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="container noselect">
+                                <div class="canvas">
+                                    <div class="tracker tr-1"></div>
+                                    <div class="tracker tr-2"></div>
+                                    <div class="tracker tr-3"></div>
+                                    <div class="tracker tr-4"></div>
+                                    <div class="tracker tr-5"></div>
+                                    <div class="tracker tr-6"></div>
+                                    <div class="tracker tr-7"></div>
+                                    <div class="tracker tr-8"></div>
+                                    <div class="tracker tr-9"></div>
+                                    <div class="tracker tr-10"></div>
+                                    <div class="tracker tr-11"></div>
+                                    <div class="tracker tr-12"></div>
+                                    <div class="tracker tr-13"></div>
+                                    <div class="tracker tr-14"></div>
+                                    <div class="tracker tr-15"></div>
+                                    <div class="tracker tr-16"></div>
+                                    <div class="tracker tr-17"></div>
+                                    <div class="tracker tr-18"></div>
+                                    <div class="tracker tr-19"></div>
+                                    <div class="tracker tr-20"></div>
+                                    <div class="tracker tr-21"></div>
+                                    <div class="tracker tr-22"></div>
+                                    <div class="tracker tr-23"></div>
+                                    <div class="tracker tr-24"></div>
+                                    <div class="tracker tr-25"></div>
+                                    <div id="card">
+                                        <p id="prompt" class="text-center">No agents yet</p>
+                                        <div class="title text-center">what are you looking<br>for?</div>
+                                        <div class="subtitle">
+                                            mouse hover tracker
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="p-8" id="add_api_keys">
+            <div class="bg-base-200 h-full row-span-2 w-full rounded-3xl pt-4 px-8 pb-4 outline outline-secondary ">
+                <div class="pb-4">
+                    <p class="text-2xl"><strong>Add API Key</strong></p>
+                </div>
+                <div class="card ring-4 ring-inset ring-secondary" id="key_inner">
+                    <div class="card-body h-full bg-base-100 rounded-3xl overflow-y-scroll">
+                        <div class="w-full h-full">
+                            <form method="post" class="h-[100%]" id="key_data">
+                                {% csrf_token %}
+                                <div class="grid grid-cols-4 h-[100%]">
+                                    <div class="mb-[10%] col-span-4 row-span-1" id="choose_api_key_type">
+                                        <div id="inp_box" class="p-1 skeleton outline outline-secondary rounded-2xl">
+                                            <div id="key_type" class="h-full w-full bg-black rounded-2xl">
+                                                <select id="key_type_select" class="w-25 focus:outline-0">
+                                                    <option class="">choose type</option>
+                                                    {% for key in all_ai_types %}
+                                                        <option class="bg-base-100 ">{{ key }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="inp_box" class="p-1 outline outline-secondary skeleton rounded-2xl">
+                                            <div id="key_type" class="h-full w-full bg-black rounded-2xl">
+                                                <select id="key_sec_type_select" class="w-25 focus:outline-0">
+                                                    <option class="">choose llm</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-span-4 row-start-2 row-span-4">
+                                        <div class="skeleton p-4"
+                                             id="skeleton-box">
+                                            <div class="opacity-50 content-center col-start-2 col-span-4 row-start-2 h-full w-full"
+                                                 id="input-box">
+                                                <p class="text-3xl font-sans text-center center "><strong>choose your
+                                                    api key
+                                                    type
+                                                    first</strong></p>
+                                            </div>
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="name_key">
+                                                <input
+                                                        type="text"
+                                                        name="name"
+                                                        class="textInput"
+                                                        placeholder="name"
+                                                        required
+                                                        id="id_name"
+                                                        model-data="name"
+                                                >
+                                            </div>
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="anthropic-input">
+                                                <input
+                                                        type="text"
+                                                        name="anthropic_api_key"
+                                                        class="textInput"
+                                                        placeholder="Anthropic API Key"
+                                                        required
+                                                        id="id_anthropic_api_key"
+                                                        model-data="anthropic_api_key"
+                                                >
+                                            </div>
+
+
+                                            <!-- AWS Bedrock Models -->
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="bed-rock-input">
+                                                <input
+                                                        type="text"
+                                                        name="aws_access_key_id"
+                                                        placeholder="AWS Access Key ID"
+                                                        required
+                                                        id="id_aws_access_key"
+                                                        class="textInput"
+                                                        model-data="aws_access_key_id"
+                                                >
+                                            </div>
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="bed-rock-input">
+                                                <input
+                                                        type="text"
+                                                        name="aws_secret_key"
+                                                        placeholder="AWS Secret Access Key"
+                                                        required
+                                                        id="id_aws_secret"
+                                                        model-data="aws_secret_key"
+                                                        class="textInput"
+                                                >
+                                            </div>
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="bed-rock-input">
+                                                <input
+                                                        type="text"
+                                                        name="aws_region"
+                                                        placeholder="AWS Region (e.g., us-east-1)"
+                                                        required
+                                                        id="id_aws_region"
+                                                        model-data="aws_region"
+                                                        class="textInput"
+                                                >
+                                            </div>
+
+
+                                            <!-- Azure OpenAI Models -->
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="azure-input">
+                                                <input
+                                                        type="text"
+                                                        name="azure_openai_key"
+                                                        placeholder="Azure OpenAI Key"
+                                                        required
+                                                        id="id_azure_key"
+                                                        model-data="azure_openai_key"
+                                                        class="textInput"
+                                                >
+                                            </div>
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="azure-input">
+                                                <input
+                                                        type="text"
+                                                        name="azure_endpoint"
+                                                        placeholder="Azure Endpoint URL"
+                                                        required
+                                                        model-data="azure_endpoint_url"
+                                                        id="id_azure_endpoint"
+                                                        class="textInput"
+                                                >
+                                            </div>
+                                            <div class="textInputWrapper hidden col-span-4 w-full" id="azure-input">
+                                                <input
+                                                        type="text"
+                                                        name="azure_deployment"
+                                                        placeholder="Deployment Name (e.g., gpt-4)"
+                                                        model-data="azure_deployment_name"
+                                                        required
+                                                        id="id_azure_deployment"
+                                                        class="textInput"
+                                                >
+                                            </div>
+                                            <div class="flex w-full h-full row-start-8 col-start-6 hidden"
+                                                 id="input-button">
+                                                <button type="submit"
+                                                        class="rounded-3xl text-secondary btn btn-secondary btn-outline "
+                                                        id="key-data-submit">Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="w-full p-8 w-full " id="all_api_keys">
+            <div class="bg-base-200 h-full row-span-2 w-full rounded-3xl pt-4 px-8 pb-4 outline outline-secondary ">
+                <div class="pb-4">
+                    <p class="text-2xl"><strong>API Keys</strong></p>
+                </div>
+                <div class="card ring-4 ring-inset ring-secondary" id="key_inner">
+
+
+                    <div class="bg-base-100 rounded-3xl card-body overflow-scroll overflow-x-scroll no-scrollbar"
+                         id="scroll_key">
+                        {% for key in keys %}
+                            <div class="stat-shadow rounded-3xl w-full my-2" style="border:gray 1px solid" id="API">
+                                <div class="flex flex-row">
+                                    <div class="stat simp-bottom-bord"
+                                         style="border-right:1px solid rgb(179, 179, 179);">
+                                        <div class="stat-title">
+
+                                        </div>
+                                        <div class="stat-value text-secondary w-24">
+                                            {{ key.name }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="px-4 py-2">
+                                    <label class="flex items-center gap-2 input input-bordered input-secondary">
+                                        <input type="text" class=" grow w-full max-w-xs"
+                                               value="{% if key.anthropic_api_key %}
+                                               {{ key.anthropic_api_key }}
+                                               	{% elif key.aws_secret_key %}
+                                               	{{ key.aws_secret_key }}
+                                               	{% else %}
+                                               	{{ key.azure_openai_key }}
+                                               {% endif %} " disabled/>
+                                    </label>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{ all_ai_types|json_script:"data-json" }}
+{{ created|json_script:"created" }}
+
+</body>
+<script src="{% static "assets/js/dashboard.js" %}"></script>
+
+
+
+</html>
