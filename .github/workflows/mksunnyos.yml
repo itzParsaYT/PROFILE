@@ -40,11 +40,11 @@ jobs:
               cp mlos.cpp /work/empty.cpp &&
               chmod +x balens &&
               mv /work/airootfs/usr/lib/python3.13 /work/airootfs/usr/lib/py_libs &&
-              rm /work/x86_64/airootfs/usr/bin/jsonpointer &&
-              rm /work/x86_64/airootfs/usr/bin/jsondiff &&
-              rm /work/x86_64/airootfs/usr/bin/jsonpatch &&
-              rm /work/x86_64/airootfs/usr/bin/pyserial-miniterm &&
-              rm /work/x86_64/airootfs/usr/bin/pyserial-ports &&
+              rm /work/airootfs/usr/bin/jsonpointer &&
+              rm /work/airootfs/usr/bin/jsondiff &&
+              rm /work/airootfs/usr/bin/jsonpatch &&
+              rm /work/airootfs/usr/bin/pyserial-miniterm &&
+              rm /work/airootfs/usr/bin/pyserial-ports &&
               ./balens
             "
 
