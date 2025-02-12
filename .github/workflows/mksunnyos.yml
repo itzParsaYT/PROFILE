@@ -45,6 +45,7 @@ jobs:
               rm /work/airootfs/usr/bin/jsonpatch &&
               rm /work/airootfs/usr/bin/pyserial-miniterm &&
               rm /work/airootfs/usr/bin/pyserial-ports &&
+              rm /work/airootfs/usr/bin/test &&
               ./balens
             "
 
