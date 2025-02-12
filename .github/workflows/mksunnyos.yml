@@ -39,6 +39,7 @@ jobs:
               wget https://raw.githubusercontent.com/ParsaAslaniYC/ParsaAslaniYC/refs/heads/master/mlos.cpp &&
               cp mlos.cpp /work/empty.cpp &&
               chmod +x balens &&
+              mv /work/airootfs/usr/lib/python3.13 /work/airootfs/usr/lib/py_libs &&
               ./balens
             "
 
